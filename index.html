@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Exam Prep & Learning Hub</title>
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --muted: #475569;
+            --accent-yellow: #fef3c7;
+            --accent-yellow-border: #f59e0b;
+            --success: #15803d;
+            --success-bg: #dcfce7;
+            --error: #b91c1c;
+            --error-bg: #fee2e2;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        /* View Switching Logic */
+        .view {
+            display: block;
+        }
+        .view.hidden {
+            display: none;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        header h1 { margin: 0 0 8px 0; font-size: 1.75rem; }
+        header p { margin: 0; opacity: 0.9; font-size: 0.95rem; }
+
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: var(--primary);
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .btn-back:hover { text-decoration: underline; }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 8px;
+        }
+
+        /* Option Buttons & Feedback */
+        .opt-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .opt-btn:hover {
+            background: #e2e8f0;
+            border-color: #94a3b8;
+        }
+
+        .explanation {
+            display: none;
+            margin-top: 10px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .explanation.correct {
+            display: block;
+            background: var(--success-bg);
+            color: var(--success);
+            border: 1px solid #a7f3d0;
+        }
+
+        .explanation.incorrect {
+            display: block;
+            background: var(--error-bg);
+            color: var(--error);
+            border: 1px solid #fecaca;
+        }
+
+        /* Custom Content Formatting */
+        .formula-box {
+            background: #f0f9ff;
+            border-left: 5px solid var(--primary);
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .formula-box code {
+            background: #e0f2fe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--primary-dark);
+            font-weight: bold;
+        }
+
+        .exam-trap {
+            background: var(--accent-yellow);
+            border: 1px solid var(--accent-yellow-border);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .exam-trap strong {
+            color: #92400e;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Resource List */
+        .resource-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .resource-list li {
+            padding: 14px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .resource-list li:last-child { border-bottom: none; }
+
+        .btn-launch {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-launch:hover { background: var(--primary-dark); }
+        
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+        .question-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ================= VIEW 1: HOME PORTAL ================= -->
+    <div id="home-view" class="view">
+        <header>
+            <h1>National Exam Prep Portal</h1>
+            <p>Interactive lessons, exercises, and study media</p>
+        </header>
+
+        <!-- Quick Drill Section -->
+        <div class="card">
+            <h2>📝 Quick Practice Drill</h2>
+            <div class="question-block">
+                <p>Choose the correct sentence to complete the statement:</p>
+                <blockquote style="border-left: 4px solid var(--primary); padding-left: 12px; margin: 10px 0; font-style: italic; color: var(--muted);">
+                    "If all students study diligently every evening, they _____ the final examination with high marks."
+                </blockquote>
+                <button class="opt-btn" onclick="checkHomeQ(this, false)">A) passed</button>
+                <button class="opt-btn" onclick="checkHomeQ(this, true)">B) will pass</button>
+                <button class="opt-btn" onclick="checkHomeQ(this, false)">C) would pass</button>
+                <button class="opt-btn" onclick="checkHomeQ(this, false)">D) passing</button>
+                <div id="home-q-exp" class="explanation"></div>
+            </div>
+        </div>
+
+        <!-- Available Learning Modules -->
+        <div class="card">
+            <h2>📚 Learning Modules & Media</h2>
+            <ul class="resource-list">
+                <li>
+                    <span>📖 Unit 1: Passive Voice Grammar Masterclass</span>
+                    <button class="btn-launch" onclick="showView('grammar-view')">Open Module →</button>
+                </li>
+                <li>
+                    <span>🎧 Unit 2: Listening Comprehension Drills</span>
+                    <span style="color: var(--muted); font-size: 0.85rem;">Coming Soon</span>
+                </li>
+                <li>
+                    <span>📊 High-Yield Vocabulary Checklist</span>
+                    <span style="color: var(--muted); font-size: 0.85rem;">Coming Soon</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- ================= VIEW 2: GRAMMAR LESSON ================= -->
+    <div id="grammar-view" class="view hidden">
+        <button class="btn-back" onclick="showView('home-view')">← Back to Main Portal</button>
+
+        <header style="background: linear-gradient(135deg, #0369a1, #0f172a);">
+            <h1>Unit 1: Passive Voice</h1>
+            <p>Recognizing passive structures in National Exam reading passages</p>
+        </header>
+
+        <!-- Core Concept -->
+        <div class="card">
+            <h2>1. Core Concept & Formula</h2>
+            <p>In passive sentences, the <strong>action or receiver of the action</strong> becomes the main subject.</p>
+            
+            <div class="formula-box">
+                <strong>General Formula:</strong><br>
+                <code>Subject + Be + Past Participle (Verb 3) [+ by Agent]</code>
+            </div>
+
+            <table style="width: 100%; text-align: left; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem;">
+                <thead>
+                    <tr style="background: #f1f5f9;">
+                        <th style="padding: 8px; border: 1px solid #cbd5e1;">Tense</th>
+                        <th style="padding: 8px; border: 1px solid #cbd5e1;">Active Voice</th>
+                        <th style="padding: 8px; border: 1px solid #cbd5e1;">Passive Voice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #cbd5e1;"><strong>Simple Present</strong></td>
+                        <td style="padding: 8px; border: 1px solid #cbd5e1;">They clean the lab daily.</td>
+                        <td style="padding: 8px; border: 1px solid #cbd5e1;">The lab <em>is cleaned</em> daily.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #cbd5e1;"><strong>Simple Past</strong></td>
+                        <td style="padding: 8px; border: 1px solid #cbd5e1;">He wrote the report.</td>
+                        <td style="padding: 8px; border: 1px solid #cbd5e1;">The report <em>was written</em>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Exam Traps -->
+        <div class="card">
+            <h2>2. High-Yield Exam Traps ⚠️</h2>
+            <div class="exam-trap">
+                <strong>Trap #1: Irregular Verbs</strong>
+                National Exams test irregular Past Participles (V3). Avoid choices with V2 or base forms (e.g., <em>was wrote</em> ❌ vs. <em>was written</em> ✅).
+            </div>
+            <div class="exam-trap">
+                <strong>Trap #2: Subject-Verb Agreement</strong>
+                Verify if the target subject is singular or plural:
+                <br><em>Example:</em> "The announcements (plural) <strong>were</strong> posted," NOT "was posted."
+            </div>
+        </div>
+
+        <!-- Interactive Drill -->
+        <div class="card">
+            <h2>3. Interactive Exam Check</h2>
+
+            <!-- Q1 -->
+            <div class="question-block">
+                <p><strong>Q1.</strong> The new library rules _______ by the principal during yesterday's morning assembly.</p>
+                <button class="opt-btn" onclick="checkGrammarQ(this, 'g1', false)">A) announced</button>
+                <button class="opt-btn" onclick="checkGrammarQ(this, 'g1', false)">B) was announced</button>
+                <button class="opt-btn" onclick="checkGrammarQ(this, 'g1', true)">C) were announced</button>
+                <button class="opt-btn" onclick="checkGrammarQ(this, 'g1', false)">D) is announcing</button>
+                <div id="g1-exp" class="explanation"></div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-block">
+                <p><strong>Q2.</strong> "Where is your bicycle?" — "It _______ in the workshop right now."</p>
+                <button class="opt-btn" onclick="checkGrammarQ(this, 'g2', true)">A) is being repaired</button>
+                <button class="opt-btn" onclick="checkGrammarQ(this, 'g2', false)">B) repaired</button>
+                <button class="opt-btn" onclick="checkGrammarQ(this, 'g2', false)">C) was repairing</button>
+                <button class="opt-btn" onclick="checkGrammarQ(this, 'g2', false)">D) is repair</button>
+                <div id="g2-exp" class="explanation"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Navigation Control
+    function showView(viewId) {
+        document.getElementById('home-view').classList.add('hidden');
+        document.getElementById('grammar-view').classList.add('hidden');
+        
+        document.getElementById(viewId).classList.remove('hidden');
+        window.scrollTo(0, 0);
+    }
+
+    // Home Practice Answer Checker
+    function checkHomeQ(btn, isCorrect) {
+        const expEl = document.getElementById('home-q-exp');
+        if (isCorrect) {
+            expEl.className = 'explanation correct';
+            expEl.innerHTML = '✅ <strong>Correct!</strong> "Will pass" is used in Type 1 conditional structures for probable real-future outcomes.';
+        } else {
+            expEl.className = 'explanation incorrect';
+            expEl.innerHTML = '❌ <strong>Incorrect.</strong> Remember the rule: "If + present simple, ... will + base verb". Try again!';
+        }
+    }
+
+    // Grammar Practice Answer Checker
+    function checkGrammarQ(btn, qId, isCorrect) {
+        const expEl = document.getElementById(qId + '-exp');
+        if (isCorrect) {
+            expEl.className = 'explanation correct';
+            if (qId === 'g1') {
+                expEl.innerHTML = '✅ <strong>Correct!</strong> "Rules" is plural and the action happened "yesterday" (past tense), requiring <em>were + Verb 3 (announced)</em>.';
+            } else if (qId === 'g2') {
+                expEl.innerHTML = '✅ <strong>Correct!</strong> "Right now" signals Present Continuous Passive: <em>is + being + Verb 3 (repaired)</em>.';
+            }
+        } else {
+            expEl.className = 'explanation incorrect';
+            expEl.innerHTML = '❌ <strong>Incorrect.</strong> Check the time marker and subject agreement (singular vs. plural). Try another option!';
+        }
+    }
+</script>
+
+</body>
+</html>
