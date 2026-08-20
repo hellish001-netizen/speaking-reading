@@ -1,287 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>National Exam Prep & Learning Hub</title>
-    <style>
-        :root {
-            --primary: #0284c7;
-            --primary-dark: #0369a1;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #0f172a;
-            --muted: #475569;
-            --accent-yellow: #fef3c7;
-            --accent-yellow-border: #f59e0b;
-            --success: #15803d;
-            --success-bg: #dcfce7;
-            --error: #b91c1c;
-            --error-bg: #fee2e2;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 760px;
-            margin: 0 auto;
-        }
-
-        .view { display: block; }
-        .view.hidden { display: none; }
-
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        header h1 { margin: 0 0 8px 0; font-size: 1.75rem; }
-        header p { margin: 0; opacity: 0.9; font-size: 0.95rem; }
-
-        .btn-back {
-            display: inline-block;
-            margin-bottom: 15px;
-            color: var(--primary);
-            background: none;
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .btn-back:hover { text-decoration: underline; }
-
-        .card {
-            background: var(--card-bg);
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            margin-bottom: 20px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .card h2 {
-            margin-top: 0;
-            color: var(--primary-dark);
-            font-size: 1.3rem;
-            border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 8px;
-        }
-
-        /* Audio Player Styling */
-        .audio-box {
-            background: #f1f5f9;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            margin: 15px 0;
-            border: 1px solid #cbd5e1;
-        }
-
-        audio {
-            width: 100%;
-            max-width: 500px;
-            margin-top: 10px;
-        }
-
-        .opt-btn {
-            display: block;
-            width: 100%;
-            padding: 12px 15px;
-            margin: 8px 0;
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            text-align: left;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-
-        .opt-btn:hover {
-            background: #e2e8f0;
-            border-color: #94a3b8;
-        }
-
-        .explanation {
-            display: none;
-            margin-top: 10px;
-            padding: 12px 15px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .explanation.correct {
-            display: block;
-            background: var(--success-bg);
-            color: var(--success);
-            border: 1px solid #a7f3d0;
-        }
-
-        .explanation.incorrect {
-            display: block;
-            background: var(--error-bg);
-            color: var(--error);
-            border: 1px solid #fecaca;
-        }
-
-        .resource-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .resource-list li {
-            padding: 14px 0;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .resource-list li:last-child { border-bottom: none; }
-
-        .btn-launch {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-launch:hover { background: var(--primary-dark); }
-        
-        .question-block {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px dashed #cbd5e1;
-        }
-        .question-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive English grammar teaching media for junior secondary students." />
+  <title>GrammarLab | Interactive English Grammar</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<div class="container">
-
-    <!-- ================= VIEW 1: HOME PORTAL ================= -->
-    <div id="home-view" class="view">
-        <header>
-            <h1>National Exam Prep Portal</h1>
-            <p>Interactive lessons, exercises, and audio drills</p>
-        </header>
-
-        <div class="card">
-            <h2>📚 Learning Modules & Media</h2>
-            <ul class="resource-list">
-                <li>
-                    <span>📖 Unit 1: Passive Voice Grammar Masterclass</span>
-                    <button class="btn-launch" onclick="showView('grammar-view')">Open Module →</button>
-                </li>
-                <li>
-                    <span>🎧 Unit 2: Listening Comprehension Drill</span>
-                    <button class="btn-launch" onclick="showView('listening-view')">Open Audio Drill →</button>
-                </li>
-            </ul>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">G</div>
+        <div>
+          <h1>GrammarLab</h1>
+          <p>English Teaching Media</p>
         </div>
-    </div>
+      </div>
 
+      <nav id="lessonNav" aria-label="Grammar lessons"></nav>
 
-    <!-- ================= VIEW 2: GRAMMAR LESSON ================= -->
-    <div id="grammar-view" class="view hidden">
-        <button class="btn-back" onclick="showView('home-view')">← Back to Main Portal</button>
-
-        <header style="background: linear-gradient(135deg, #0369a1, #0f172a);">
-            <h1>Unit 1: Passive Voice</h1>
-            <p>Recognizing passive structures in National Exam reading passages</p>
-        </header>
-
-        <div class="card">
-            <h2>Interactive Practice</h2>
-            <div class="question-block">
-                <p><strong>Q1.</strong> The new library rules _______ by the principal yesterday.</p>
-                <button class="opt-btn" onclick="checkQ('g1', false)">A) announced</button>
-                <button class="opt-btn" onclick="checkQ('g1', true)">B) were announced</button>
-                <div id="g1-exp" class="explanation"></div>
-            </div>
+      <div class="sidebar-footer">
+        <div class="progress-label">
+          <span>Learning progress</span>
+          <strong id="progressText">0%</strong>
         </div>
-    </div>
-
-
-    <!-- ================= VIEW 3: LISTENING MODULE ================= -->
-    <div id="listening-view" class="view hidden">
-        <button class="btn-back" onclick="showView('home-view')">← Back to Main Portal</button>
-
-        <header style="background: linear-gradient(135deg, #0d9488, #115e59);">
-            <h1>Unit 2: Listening Practice</h1>
-            <p>Listen carefully to the audio clip and answer the comprehension questions.</p>
-        </header>
-
-        <!-- Audio Player Section -->
-        <div class="card">
-            <h2>🎧 Audio Track</h2>
-            <div class="audio-box">
-                <p><strong>Dialogue 1: School Announcement</strong></p>
-                <!-- Replace 'src' with your own audio file URL or relative path -->
-                <audio controls>
-                    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="progressFill"></div>
         </div>
+        <button class="ghost-btn" id="resetProgressBtn" type="button">Reset progress</button>
+      </div>
+    </aside>
 
-        <!-- Listening Quiz -->
-        <div class="card">
-            <h2>📝 Comprehension Questions</h2>
-
-            <div class="question-block">
-                <p><strong>Q1.</strong> Based on the audio recording, what is the main purpose of the speaker?</p>
-                <button class="opt-btn" onclick="checkQ('l1', false)">A) To invite students to a sport competition</button>
-                <button class="opt-btn" onclick="checkQ('l1', true)">B) To inform students about a schedule change</button>
-                <button class="opt-btn" onclick="checkQ('l1', false)">C) To remind students to bring textbooks</button>
-                <div id="l1-exp" class="explanation"></div>
-            </div>
+    <main class="main-content">
+      <header class="topbar">
+        <button class="icon-btn mobile-only" id="menuBtn" aria-label="Open lesson menu">☰</button>
+        <div>
+          <p class="eyebrow">GRADE 9 ENGLISH</p>
+          <h2 id="pageTitle">Grammar Lesson</h2>
         </div>
-    </div>
+        <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle theme">◐</button>
+      </header>
 
-</div>
+      <section id="lessonView" class="content-view"></section>
+    </main>
+  </div>
 
-<script>
-    function showView(viewId) {
-        document.getElementById('home-view').classList.add('hidden');
-        document.getElementById('grammar-view').classList.add('hidden');
-        document.getElementById('listening-view').classList.add('hidden');
-        
-        document.getElementById(viewId).classList.remove('hidden');
-        window.scrollTo(0, 0);
-    }
+  <template id="lessonTemplate">
+    <article class="lesson-card">
+      <div class="lesson-hero">
+        <div>
+          <span class="lesson-tag"></span>
+          <h2 class="lesson-title"></h2>
+          <p class="lesson-summary"></p>
+        </div>
+        <div class="lesson-icon" aria-hidden="true"></div>
+      </div>
 
-    function checkQ(qId, isCorrect) {
-        const expEl = document.getElementById(qId + '-exp');
-        if (isCorrect) {
-            expEl.className = 'explanation correct';
-            expEl.innerHTML = '✅ <strong>Correct!</strong> Great job identifying the correct answer.';
-        } else {
-            expEl.className = 'explanation incorrect';
-            expEl.innerHTML = '❌ <strong>Incorrect.</strong> Listen to the audio again and pay attention to key details!';
-        }
-    }
-</script>
+      <div class="learning-grid">
+        <section class="panel">
+          <h3>When do we use it?</h3>
+          <ul class="use-list"></ul>
+        </section>
+        <section class="panel formula-panel">
+          <h3>Basic pattern</h3>
+          <div class="formula-box"></div>
+        </section>
+      </div>
 
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <span class="mini-label">EXAMPLES</span>
+            <h3>See the grammar in action</h3>
+          </div>
+        </div>
+        <div class="example-list"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <span class="mini-label">PRACTICE</span>
+            <h3>Try it yourself</h3>
+          </div>
+          <span class="score-badge practice-score">0 / 0</span>
+        </div>
+        <div class="practice-list"></div>
+        <button class="primary-btn check-practice-btn" type="button">Check answers</button>
+        <div class="feedback-box practice-feedback" hidden></div>
+      </section>
+
+      <section class="panel tip-panel">
+        <div class="tip-icon">💡</div>
+        <div>
+          <h3>Quick teacher tip</h3>
+          <p class="teacher-tip"></p>
+        </div>
+      </section>
+
+      <div class="lesson-actions">
+        <button class="secondary-btn prev-btn" type="button">← Previous</button>
+        <button class="primary-btn complete-btn" type="button">Mark lesson complete</button>
+        <button class="secondary-btn next-btn" type="button">Next →</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
 </body>
 </html>
